@@ -1,0 +1,67 @@
+{
+    "app": {
+        "title": "SugarCtrl",
+        "subtitle": "Track your health"
+    },
+    "nav": {
+        "home": "Home",
+        "log": "Log",
+        "trends": "Trends",
+        "history": "History",
+        "settings": "Settings"
+    },
+    "trends": {
+        "title": "Glucose Trends",
+        "today": "Today",
+        "last7Days": "7 Days",
+        "last30Days": "30 Days",
+        "last6Months": "6 Months",
+        "custom": "Custom",
+        "avg": "Average",
+        "min": "Min",
+        "max": "Max",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+    },
+    "dashboard": {
+        "hello": "Hello, {{name}}",
+        "latestUpdate": "Here is your latest update",
+        "currentLevel": "Current Level",
+        "recentHistory": "Recent History",
+        "noData": "No data",
+        "noLogs": "No logs yet. Add your first!"
+    },
+    "log": {
+        "title": "New Entry",
+        "subtitle": "Record your reading",
+        "glucoseLabel": "Glucose Level",
+        "dateTimeLabel": "Date & Time",
+        "addPhoto": "Add Meal Photo",
+        "notesPlaceholder": "Add notes...",
+        "save": "Save Entry",
+        "saving": "Saving..."
+    },
+    "history": {
+        "title": "History",
+        "subtitle": "All your records",
+        "deleteConfirm": "Are you sure you want to delete this entry?",
+        "empty": "No history yet."
+    },
+    "settings": {
+        "title": "Settings",
+        "name": "Your Name",
+        "subtitle": "Preferences",
+        "language": "Language",
+        "units": "Units",
+        "unitDescription": "Select your preferred unit of measurement"
+    },
+    "context": {
+        "fasting": "Fasting",
+        "pre-meal": "Pre-meal",
+        "post-meal": "Post-meal",
+        "post-meal-1h": "Post-meal 1h",
+        "post-meal-2h": "Post-meal 2h",
+        "bedtime": "Bedtime",
+        "other": "Other"
+    }
+}

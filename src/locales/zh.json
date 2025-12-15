@@ -1,0 +1,67 @@
+{
+    "app": {
+        "title": "糖控制",
+        "subtitle": "关注您的健康"
+    },
+    "nav": {
+        "home": "首页",
+        "log": "记录",
+        "trends": "趋势",
+        "history": "历史",
+        "settings": "设置"
+    },
+    "trends": {
+        "title": "血糖趋势",
+        "today": "今天",
+        "last7Days": "7天",
+        "last30Days": "30天",
+        "last6Months": "6个月",
+        "custom": "自定义",
+        "avg": "平均",
+        "min": "最低",
+        "max": "最高",
+        "startDate": "开始日期",
+        "endDate": "结束日期"
+    },
+    "dashboard": {
+        "hello": "你好, {{name}}",
+        "latestUpdate": "最新血糖记录",
+        "currentLevel": "当前血糖",
+        "recentHistory": "近期记录",
+        "noData": "暂无数据",
+        "noLogs": "暂无记录，快去添加一条吧！"
+    },
+    "log": {
+        "title": "新增记录",
+        "subtitle": "记录当前血糖",
+        "glucoseLabel": "血糖值",
+        "dateTimeLabel": "日期和时间",
+        "addPhoto": "添加餐食照片",
+        "notesPlaceholder": "添加备注...",
+        "save": "保存记录",
+        "saving": "保存中..."
+    },
+    "history": {
+        "title": "历史记录",
+        "subtitle": "所有记录明细",
+        "deleteConfirm": "确定要删除这条记录吗？",
+        "empty": "暂无历史记录"
+    },
+    "settings": {
+        "title": "设置",
+        "name": "你的名字",
+        "subtitle": "偏好设置",
+        "language": "语言",
+        "units": "单位",
+        "unitDescription": "选择您偏好的计量单位"
+    },
+    "context": {
+        "fasting": "空腹",
+        "pre-meal": "餐前",
+        "post-meal": "餐后",
+        "post-meal-1h": "餐后1小时",
+        "post-meal-2h": "餐后2小时",
+        "bedtime": "睡前",
+        "other": "其他"
+    }
+}
