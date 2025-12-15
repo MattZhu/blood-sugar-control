@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# Glucose Control PWA 🩸
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A private, offline-first Progressive Web App (PWA) designed to help you track and manage your blood sugar levels with ease. Built with **React**, **TypeScript**, and **Vite**, featuring a beautiful glassmorphism UI.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Easy Logging**: Quickly log glucose levels with context (Fasting, Pre-meal, Post-meal, etc.).
+- **Photo Tracking**: Attach meal photos to your logs to correlate food with spikes.
+- **Visual Trends**: View interactive graphs (Today, 7 Days, 30 Days, 6 Months) with min/max/avg stats.
+- **History Management**: Browse past records, **edit** entries, or delete mistakes.
+- **Customizable**:
+  - **Units**: Toggle between `mg/dL` and `mmol/L` (auto-converts existing data).
+  - **Language**: Full support for English and Chinese (中文).
+  - **Personalize**: Set your name for a friendly greeting.
+- **Privacy Focused**: **100% Offline**. All data is stored locally on your device using IndexedDB. No servers, no tracking.
+- **PWA Ready**: Install on your iPhone (Add to Home Screen) for a native app-like experience.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: Vanilla CSS (Mobile-first, Glassmorphism, Dark mode optimization)
+- **State/Storage**: React Hooks + [idb](https://github.com/jakearchibald/idb) (IndexedDB wrapper)
+- **Charts**: [Recharts](https://recharts.org/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Internationalization**: [i18next](https://www.i18next.com/)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/MattZhu/blood-sugar-control.git
+   cd blood-sugar-control
+   ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📱 Deployment (iPhone PWA)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+To run this on your iPhone as an app:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Build the project**
+   ```bash
+   npm run build
+   ```
+   This creates a `dist` folder.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. **Host the `dist` folder**
+   - You can use services like [Vercel](https://vercel.com/), [Netlify](https://www.netlify.com/), or generic static hosting.
+   - Or run a local server (e.g., `python3 -m http.server 8000`) and access it via your computer's local IP address.
+
+3. **Install on iPhone**
+   - Open the hosted URL in **Safari**.
+   - Tap the **Share** button (box with arrow).
+   - Scroll down and tap **"Add to Home Screen"**.
+
+For detailed deployment instructions, see [DEPLOY.md](./DEPLOY.md).
+
+## 📄 License
+
+MIT
