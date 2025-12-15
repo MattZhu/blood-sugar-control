@@ -6,6 +6,7 @@
     "nav": {
         "home": "首页",
         "log": "记录",
+        "updateLog": "更新记录",
         "trends": "趋势",
         "history": "历史",
         "settings": "设置"
@@ -44,7 +45,9 @@
     "history": {
         "title": "历史记录",
         "subtitle": "所有记录明细",
-        "deleteConfirm": "确定要删除这条记录吗？",
+        "deleteConfirm": "确定删除这条记录吗？",
+        "edit": "编辑",
+        "update": "更新",
         "empty": "暂无历史记录"
     },
     "settings": {

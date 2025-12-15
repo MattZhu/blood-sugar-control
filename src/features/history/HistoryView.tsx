@@ -3,9 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { dbService } from '../../lib/db';
 import type { GlucoseLog } from '../../lib/types';
 import { convertGlucose } from '../../lib/units';
-import { Trash2, Image as ImageIcon } from 'lucide-react';
+import { Trash2, Image as ImageIcon, Pencil } from 'lucide-react';
 
-export function HistoryView() {
+interface HistoryViewProps {
+    onEdit?: (log: GlucoseLog) => void;
+}
+
+export function HistoryView({ onEdit }: HistoryViewProps) {
     const { t } = useTranslation();
     const [logs, setLogs] = useState<GlucoseLog[]>([]);
     const [loading, setLoading] = useState(true);
@@ -53,7 +57,7 @@ export function HistoryView() {
     if (loading) return <div style={{ textAlign: 'center', marginTop: '2rem' }}>Loading...</div>;
 
     return (
-        <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '3rem' }}>
             <header>
                 <h2 style={{ fontSize: '1.5rem' }}>{t('history.title')}</h2>
                 <p style={{ color: 'var(--color-text-muted)' }}>{t('history.subtitle')}</p>
@@ -85,17 +89,25 @@ export function HistoryView() {
                                 </div>
 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    {onEdit && (
+                                        <button
+                                            onClick={() => onEdit(log)}
+                                            style={{ padding: '0.5rem', color: 'var(--color-primary)', background: 'none', border: 'none' }}
+                                        >
+                                            <Pencil size={18} />
+                                        </button>
+                                    )}
                                     {log.image && (
                                         <button
                                             onClick={() => setSelectedImage(URL.createObjectURL(log.image!))}
-                                            style={{ padding: '0.5rem', color: 'var(--color-primary)' }}
+                                            style={{ padding: '0.5rem', color: 'var(--color-text-main)', background: 'none', border: 'none' }}
                                         >
                                             <ImageIcon size={20} />
                                         </button>
                                     )}
                                     <button
                                         onClick={() => handleDelete(log.id)}
-                                        style={{ padding: '0.5rem', color: 'var(--color-text-muted)' }}
+                                        style={{ padding: '0.5rem', color: 'var(--color-text-muted)', background: 'none', border: 'none' }}
                                     >
                                         <Trash2 size={18} />
                                     </button>
