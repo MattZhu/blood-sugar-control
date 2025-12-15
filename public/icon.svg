@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" /> <!-- Slate-900 -->
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" /> <!-- Slate-800 -->
+    </linearGradient>
+    <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f43f5e;stop-opacity:1" /> <!-- Rose-500 (Sugar/Blood) -->
+      <stop offset="50%" style="stop-color:#2dd4bf;stop-opacity:1" /> <!-- Teal-400 (Control) -->
+      <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:1" /> <!-- Sky-400 -->
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="512" height="512" rx="128" fill="url(#bg)" />
+  <rect x="10" y="10" width="492" height="492" rx="118" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="20" />
+
+  <!-- Glucose Molecule (Hexagon) Frame -->
+  <!-- Center: 256, 256. Radius ~140 -->
+  <path d="M256,116 L396,196 L396,356 L256,436 L116,356 L116,196 Z" 
+        fill="none" 
+        stroke="rgba(255, 255, 255, 0.15)" 
+        stroke-width="24" 
+        stroke-linejoin="round" />
+
+  <!-- Tracking Pulse Line -->
+  <!-- Enters left, irregular heartbeat/trend, exits right -->
+  <path d="M64,256 L128,256 L160,320 L224,160 L288,352 L352,256 L448,256" 
+        fill="none" 
+        stroke="url(#pulseGradient)" 
+        stroke-width="32" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        filter="url(#glow)" />
+        
+  <!-- Connection Dots (At vertices of molecule/line intersection to imply connection) -->
+  <circle cx="224" cy="160" r="16" fill="#f43f5e" filter="url(#glow)" />
+  <circle cx="288" cy="352" r="16" fill="#2dd4bf" filter="url(#glow)" />
+
+</svg>
