@@ -14,6 +14,15 @@ export function SettingsView() {
             if (s) {
                 setSettings(s);
                 setName(s.name || '');
+            } else {
+                // Default settings for new users
+                const defaults: UserSettings = {
+                    targetRange: { min: 70, max: 140 },
+                    preferredUnit: 'mg/dL',
+                    name: ''
+                };
+                setSettings(defaults);
+                dbService.saveSettings(defaults);
             }
         });
     }, []);
