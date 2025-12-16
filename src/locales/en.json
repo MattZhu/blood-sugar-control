@@ -42,7 +42,9 @@
         "notes": "Notes",
         "notesPlaceholder": "Add notes...",
         "save": "Save Entry",
-        "saving": "Saving..."
+        "saving": "Saving...",
+        "glucoseRequired": "Glucose level is required",
+        "glucoseInvalid": "Please enter a valid number"
     },
     "history": {
         "title": "History",

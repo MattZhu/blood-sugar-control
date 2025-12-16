@@ -42,7 +42,9 @@
         "notes": "备注",
         "notesPlaceholder": "添加备注...",
         "save": "保存记录",
-        "saving": "保存中..."
+        "saving": "保存中...",
+        "glucoseRequired": "请输入血糖值",
+        "glucoseInvalid": "请输入有效的数字"
     },
     "history": {
         "title": "历史记录",

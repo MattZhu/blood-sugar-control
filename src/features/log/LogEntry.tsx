@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { dbService } from '../../lib/db';
 import { v4 as uuidv4 } from 'uuid';
-import { Camera, Save, X, FileText, Calendar } from 'lucide-react';
+import { Camera, Save, X, FileText, Calendar, AlertCircle } from 'lucide-react';
 import type { ReadingContext, GlucoseLog, UserSettings } from '../../lib/types';
 import { format } from 'date-fns';
 import { convertGlucose } from '../../lib/units';
@@ -21,11 +21,25 @@ export function LogEntry({ onComplete, initialData }: LogEntryProps) {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [settings, setSettings] = useState<UserSettings | null>(null);
     const [dateStr, setDateStr] = useState(format(new Date(), 'yyyy-MM-dd\'T\'HH:mm'));
+    const [error, setError] = useState<string>('');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         dbService.getSettings().then(s => {
-            if (s) setSettings(s);
+            if (s) {
+                setSettings(s);
+            } else {
+                // Create default settings if none exist
+                const defaultSettings: UserSettings = {
+                    targetRange: {
+                        min: 70,
+                        max: 180
+                    },
+                    preferredUnit: 'mg/dL'
+                };
+                dbService.saveSettings(defaultSettings);
+                setSettings(defaultSettings);
+            }
         });
     }, []);
 
@@ -53,10 +67,20 @@ export function LogEntry({ onComplete, initialData }: LogEntryProps) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!value || !settings) return;
+        setError('');
+
+        if (!settings) return;
+
+        if (!value || value.trim() === '') {
+            setError(t('log.glucoseRequired'));
+            return;
+        }
 
         let numValue = parseFloat(value);
-        if (isNaN(numValue)) return;
+        if (isNaN(numValue)) {
+            setError(t('log.glucoseInvalid'));
+            return;
+        }
 
         // Save strictly in mg/dL
         if (settings.preferredUnit === 'mmol/L') {
@@ -120,6 +144,19 @@ export function LogEntry({ onComplete, initialData }: LogEntryProps) {
                             {settings.preferredUnit}
                         </span>
                     </div>
+                    {error && (
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            color: '#ef4444',
+                            fontSize: '0.875rem',
+                            marginTop: '0.5rem'
+                        }}>
+                            <AlertCircle size={16} />
+                            <span>{error}</span>
+                        </div>
+                    )}
                 </div>
 
                 {/* Date & Time Input */}
