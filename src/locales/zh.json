@@ -37,7 +37,9 @@
         "subtitle": "记录当前血糖",
         "glucoseLabel": "血糖值",
         "dateTimeLabel": "日期和时间",
+        "contextLabel": "场景",
         "addPhoto": "添加餐食照片",
+        "notes": "备注",
         "notesPlaceholder": "添加备注...",
         "save": "保存记录",
         "saving": "保存中..."

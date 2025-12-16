@@ -1,17 +1,20 @@
+
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { dbService } from '../../lib/db';
 import type { GlucoseLog, UserSettings } from '../../lib/types';
 import { convertGlucose } from '../../lib/units';
-import { ArrowUp, ArrowDown, Minus } from 'lucide-react';
+import { ArrowUp, ArrowDown, Minus, ArrowLeft } from 'lucide-react';
+import { LogEntry } from '../log/LogEntry';
 
 export function Dashboard() {
     const { t } = useTranslation();
     const [logs, setLogs] = useState<GlucoseLog[]>([]);
     const [loading, setLoading] = useState(true);
     const [settings, setSettings] = useState<UserSettings>({ targetRange: { min: 70, max: 140 }, preferredUnit: 'mg/dL' });
+    const [editingLog, setEditingLog] = useState<GlucoseLog | null>(null);
 
-    useEffect(() => {
+    const loadData = () => {
         Promise.all([
             dbService.getLogs(),
             dbService.getSettings()
@@ -20,6 +23,10 @@ export function Dashboard() {
             if (fetchedSettings) setSettings(fetchedSettings);
             setLoading(false);
         });
+    };
+
+    useEffect(() => {
+        loadData();
     }, []);
 
     const unit = settings.preferredUnit;
@@ -41,6 +48,37 @@ export function Dashboard() {
     };
 
     if (loading) return <div style={{ textAlign: 'center', marginTop: '2rem' }}>Loading...</div>;
+
+    if (editingLog) {
+        return (
+            <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <button
+                    onClick={() => setEditingLog(null)}
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        color: 'var(--color-text-muted)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        cursor: 'pointer',
+                        alignSelf: 'flex-start',
+                        padding: '0.5rem 0'
+                    }}
+                >
+                    <ArrowLeft size={20} />
+                    Back
+                </button>
+                <LogEntry
+                    initialData={editingLog}
+                    onComplete={() => {
+                        setEditingLog(null);
+                        loadData();
+                    }}
+                />
+            </div>
+        );
+    }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -84,14 +122,25 @@ export function Dashboard() {
                     <p style={{ color: 'var(--color-text-muted)', textAlign: 'center', padding: '1rem' }}>{t('dashboard.noLogs')}</p>
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        {logs.slice(0, 3).map(log => (
-                            <div key={log.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                        {logs.slice(0, 5).map(log => (
+                            <div
+                                key={log.id}
+                                onClick={() => setEditingLog(log)}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    paddingBottom: '0.5rem',
+                                    borderBottom: '1px solid rgba(255,255,255,0.05)',
+                                    cursor: 'pointer'
+                                }}
+                            >
                                 <div>
                                     <div style={{ fontWeight: 600 }}>{displayValue(log.value)} <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>{unit}</span></div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>{t(`context.${log.context}`)}</div>
                                 </div>
                                 <div style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>
-                                    {new Date(log.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                                    {new Date(log.timestamp).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                 </div>
                             </div>
                         ))}

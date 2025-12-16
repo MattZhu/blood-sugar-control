@@ -126,7 +126,7 @@ export function LogEntry({ onComplete, initialData }: LogEntryProps) {
                 <div className="glass-card" style={{ padding: '1rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                         <Calendar size={20} color="var(--color-primary)" />
-                        <span style={{ fontWeight: 500 }}>{t('log.dateTime')}</span>
+                        <span style={{ fontWeight: 500 }}>{t('log.dateTimeLabel')}</span>
                     </div>
                     <input
                         type="datetime-local"
@@ -148,7 +148,7 @@ export function LogEntry({ onComplete, initialData }: LogEntryProps) {
                 {/* Context Selection */}
                 <div className="glass-card" style={{ padding: '1rem' }}>
                     <label style={{ display: 'block', marginBottom: '0.75rem', fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>
-                        Context
+                        {t('log.contextLabel')}
                     </label>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                         {contexts.map((c) => (
@@ -182,7 +182,7 @@ export function LogEntry({ onComplete, initialData }: LogEntryProps) {
                     <textarea
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Add notes..."
+                        placeholder={t('log.notesPlaceholder')}
                         rows={3}
                         style={{
                             width: '95%',

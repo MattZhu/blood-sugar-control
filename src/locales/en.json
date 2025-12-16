@@ -37,7 +37,9 @@
         "subtitle": "Record your reading",
         "glucoseLabel": "Glucose Level",
         "dateTimeLabel": "Date & Time",
+        "contextLabel": "Context",
         "addPhoto": "Add Meal Photo",
+        "notes": "Notes",
         "notesPlaceholder": "Add notes...",
         "save": "Save Entry",
         "saving": "Saving..."
