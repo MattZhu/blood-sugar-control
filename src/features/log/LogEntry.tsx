@@ -57,11 +57,69 @@ export function LogEntry({ onComplete, initialData }: LogEntryProps) {
         }
     }, [initialData, settings]);
 
-    const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const compressImage = async (file: File): Promise<Blob> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) {
+                        reject(new Error('Could not get canvas context'));
+                        return;
+                    }
+
+                    // Calculate new dimensions (max width 1200px)
+                    const maxWidth = 1200;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height = (height * maxWidth) / width;
+                        width = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    // Draw and compress
+                    ctx.drawImage(img, 0, 0, width, height);
+                    canvas.toBlob(
+                        (blob) => {
+                            if (blob) {
+                                resolve(blob);
+                            } else {
+                                reject(new Error('Could not compress image'));
+                            }
+                        },
+                        'image/jpeg',
+                        0.8 // 80% quality
+                    );
+                };
+                img.onerror = () => reject(new Error('Could not load image'));
+                img.src = e.target?.result as string;
+            };
+            reader.onerror = () => reject(new Error('Could not read file'));
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            setImage(file);
-            setImagePreview(URL.createObjectURL(file));
+
+            try {
+                // Compress the image before storing
+                const compressedBlob = await compressImage(file);
+                setImage(compressedBlob);
+                setImagePreview(URL.createObjectURL(compressedBlob));
+            } catch (error) {
+                console.error('Error compressing image:', error);
+                // Fallback to original file if compression fails
+                setImage(file);
+                setImagePreview(URL.createObjectURL(file));
+            }
         }
     };
 
