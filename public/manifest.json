@@ -2,7 +2,7 @@
     "name": "Blood Sugar Control",
     "short_name": "SugarControl",
     "description": "Track your blood sugar and meals",
-    "start_url": "/",
+    "start_url": "/blood-sugar-control",
     "display": "standalone",
     "background_color": "#121212",
     "theme_color": "#0d9488",
